@@ -1,7 +1,7 @@
 export function TodoInput(){
     return (
         <div>
-            Todo Input
+            Todo
         </div>
     )
 }
