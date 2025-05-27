@@ -4,7 +4,7 @@ import {TodoList} from './components/TodoList'
 import {TodoInput} from './components/TodoInput'
 
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
   function handleAddTodo(newTodo){
     const newTodoList = [...todos, {input: newTodo, complete: false}]
     setTodos(newTodoList)
+    handleSaveData(newTodoList)
   }
 
   function handleCompleteTodo(index){
@@ -34,6 +35,7 @@ function App() {
     completedTodo['complete'] = true
     newTodoList[index] = completedTodo
     setTodos(newTodoList)
+    handleSaveData(newTodoList)
 
   }
 
@@ -43,7 +45,22 @@ function App() {
     })
 
     setTodos(newTodoList)
+    handleSaveData(newTodoList)
   }
+
+
+  function handleSaveData(currTodos){
+    localStorage.setItem('todo-app', JSON.stringify({todos: currTodos}))
+  }
+
+  useEffect(()=>{
+    if (!localStorage || !localStorage.getItem('todo-app') ){return}
+
+    let db = JSON.parse(localStorage.getItem('todo-app'))
+
+    setTodos(db.todos)
+
+  }, [])
 
   return (
     <>
