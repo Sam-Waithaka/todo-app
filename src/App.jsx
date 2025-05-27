@@ -32,8 +32,10 @@ function App() {
     // update/edit/modify
     let newTodoList = [...todos]
     let completedTodo = todos[index]
+
     completedTodo['complete'] = true
     newTodoList[index] = completedTodo
+
     setTodos(newTodoList)
     handleSaveData(newTodoList)
 
